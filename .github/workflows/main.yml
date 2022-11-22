@@ -49,7 +49,7 @@ jobs:
     - name: Cache pip dependencies
       uses: actions/cache@v3
       with:
-        path: ~/.local/lib/python3.8/site-packages/
+        path: ${{ env.pythonLocation }}
         key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('./hexo_circle_of_friends/requirements.txt') }}
         restore-keys: |
           pip-${{ steps.setup_python.outputs.python-version }}-
