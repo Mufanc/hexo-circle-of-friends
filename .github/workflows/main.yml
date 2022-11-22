@@ -38,12 +38,21 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-
+      
     - name: Set up Python
+      id: setup_python
       uses: actions/setup-python@main
       with:
         python-version: 3.8
         cache: 'pip'
+      
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.local/lib/python3.8/site-packages/
+        key: pip-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('./hexo_circle_of_friends/requirements.txt') }}
+        restore-keys: |
+          pip-${{ steps.setup_python.outputs.python-version }}-
 
     - name: Install requirements
       working-directory: ./hexo_circle_of_friends
